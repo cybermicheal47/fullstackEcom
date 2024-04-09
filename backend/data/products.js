@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: "1",
     name: "Airpods Wireless Bluetooth Earphones",
     image: "/images/a.jpg",
     description:
@@ -13,7 +12,6 @@ const products = [
     numReviews: 15,
   },
   {
-    _id: "2",
     name: "Nike Air Zoom Sneakers",
     image: "/images/b.jpg",
     description:
@@ -26,7 +24,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: "3",
     name: "Adidas Ultraboost Running Shoes",
     image: "/images/c.jpg",
     description:
@@ -39,7 +36,6 @@ const products = [
     numReviews: 20,
   },
   {
-    _id: "4",
     name: "New Balance Fresh Foam Sneakers",
     image: "/images/d.jpg",
     description:
@@ -52,7 +48,6 @@ const products = [
     numReviews: 18,
   },
   {
-    _id: "5",
     name: "Reebok Classic Leather Shoes",
     image: "/images/e.jpg",
     description:
