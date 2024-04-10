@@ -13,7 +13,8 @@ import {
 } from "react-router-dom";
 import Homepage from "./Pages/Homepage.jsx";
 import Productpage from "./Pages/Productpage.jsx";
-
+import { Provider } from "react-redux";
+import store from "./store.js";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -25,6 +26,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
