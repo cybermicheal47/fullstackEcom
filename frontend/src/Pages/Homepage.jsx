@@ -1,8 +1,5 @@
 import { Row, Col } from "react-bootstrap";
 import Product from "@/components/Product";
-// import products from "../products";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { useGetProductsQuery } from "@/slices/productsApiSlice";
 import Loader from "@/components/Loader";
 
@@ -19,7 +16,7 @@ const Homepage = () => {
         <>
           <Row>
             {products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Col key={product._id} xs={12} sm={6} lg={4}>
                 <Product product={product} />
               </Col>
             ))}

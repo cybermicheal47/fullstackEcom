@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-// import "./index.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./assets/styles/bootstrap.custom.css";
+
 import "./assets/styles/index.css";
+
+// import "daisyui/dist/full.css";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -24,6 +26,7 @@ import PaymentPage from "./Pages/PaymentPage.jsx";
 import Orderpage from "./Pages/Orderpage.jsx";
 import CreateOrder from "./Pages/CreateOrder.jsx";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import Profilepage from "./Pages/Profilepage.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -38,6 +41,7 @@ const router = createBrowserRouter(
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/createorder" element={<CreateOrder />} />
         <Route path="/order/:id" element={<Orderpage />} />
+        <Route path="/profile" element={<Profilepage />} />
       </Route>
     </Route>
   )
