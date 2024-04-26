@@ -19,6 +19,7 @@ const Profilepage = () => {
   const dispatch = useDispatch();
   const { data, isLoading, error } = useGetMyOrdersQuery();
   console.log(data);
+
   const { userInfo } = useSelector((state) => state.auth);
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
     useProfileMutation();
@@ -29,6 +30,7 @@ const Profilepage = () => {
     }
   }, [userInfo, userInfo.name, userInfo.email]);
 
+  console.log(name);
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
