@@ -122,28 +122,70 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // route GET api/users
 //Private access/ Admin access Only
 const getUsersProfile = asyncHandler(async (req, res) => {
-  res.send(" users Profile");
+  const users = await User.find({}, "-password");
+  res.status(200).json(users);
 });
 
 // Get Users  by id
 // route GET api/users/:id
 //Private access/ Admin access Only
 const getUserById = asyncHandler(async (req, res) => {
-  res.send(" users Id");
+  const user = await User.findById(req.params.id).select("-password");
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(400);
+    throw new Error("No user Found");
+  }
 });
 
 // Update User by Id
 // route Delete api/users/:id
 //Private access/ Admin access Only
 const updateUser = asyncHandler(async (req, res) => {
-  res.send(" Update user  by ID ");
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin);
+
+    // Update password if provided
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    res.status(201).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("No user Found");
+  }
 });
 
 // Delete Users Profile
 // route Delete api/users/:id
 //Private access/ Admin access Only
 const deleteUser = asyncHandler(async (req, res) => {
-  res.send(" Delete users Profile");
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    if (user.isAdmin) {
+      res.status(400);
+      throw new Error("Can not Delete Admin");
+    }
+    await user.deleteOne();
+    res.status(201).json({ message: `User ${user.name}  Deleted` });
+  } else {
+    res.status(404);
+    throw new Error("User Not found");
+  }
 });
 
 export {
