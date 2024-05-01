@@ -50,6 +50,17 @@ export const productApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Product"],
     }),
+    createReview: builder.mutation({
+      query: (data) => {
+        console.log(data); // Console log here
+        return {
+          url: `${PRODUCTS_URL}/${data.id}/reviews`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
@@ -60,6 +71,7 @@ export const {
   useUpdateProductMutation,
   useUploadProductImageMutation,
   useDeleteProductMutation,
+  useCreateReviewMutation,
 } = productApiSlice;
 
 //  By using invalidatesTags: ["Product"], you're telling RTK Query to invalidate the cache associated with the "Product" tag whenever a new product is created, ensuring that the UI stays up-to-date with the latest data.
