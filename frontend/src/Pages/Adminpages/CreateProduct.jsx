@@ -1,9 +1,14 @@
-import { useCreateProductMutation } from "@/slices/productsApiSlice";
+import Loader from "@/components/Loader";
+import {
+  useCreateProductMutation,
+  useUploadProductImageMutation,
+} from "@/slices/productsApiSlice";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 const CreateProduct = () => {
   const [
     createProduct,
@@ -11,6 +16,8 @@ const CreateProduct = () => {
   ] = useCreateProductMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [uploadProductImage, { isLoading: imageloading }] =
+    useUploadProductImageMutation();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,6 +34,19 @@ const CreateProduct = () => {
   };
 
   console.log(formData);
+
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      toast.success(res.message);
+      setFormData({ ...formData, image: res.image });
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+      console.log(err);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -94,6 +114,14 @@ const CreateProduct = () => {
             onChange={handleChange}
           />
         </Form.Group>
+
+        <Form.Control
+          label="Choose File"
+          onChange={uploadFileHandler}
+          type="file"
+        ></Form.Control>
+        {imageloading && <Loader />}
+
         <Form.Group controlId="brand">
           <Form.Label>Brand</Form.Label>
           <Form.Control

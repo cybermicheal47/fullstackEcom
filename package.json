@@ -10,7 +10,9 @@
     "client": "npm run dev --prefix frontend",
     "both": "  concurrently \" npm run server\" \"npm run client\"  ",
     "data:import": "node backend/seeder.js",
-    "data:delete": "node backedn/seeder.js -d"
+    "data:delete": "node backend/seeder.js -d",
+    "build": "npm install && npm run build:frontend",
+    "build:frontend": "npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Web dev",
   "license": "MIT",
