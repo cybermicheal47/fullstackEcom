@@ -11,8 +11,7 @@
     "both": "  concurrently \" npm run server\" \"npm run client\"  ",
     "data:import": "node backend/seeder.js",
     "data:delete": "node backend/seeder.js -d",
-    "build": "npm install && npm run build:frontend",
-    "build:frontend": "npm install --prefix frontend && npm run build --prefix frontend"
+    "build": "cd backend && npm install && npm run build && cd ../frontend && npm install && npm run build"
   },
   "author": "Web dev",
   "license": "MIT",
