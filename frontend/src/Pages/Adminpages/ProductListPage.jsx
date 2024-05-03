@@ -10,13 +10,16 @@ import {
 } from "../../slices/productsApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Paginate from "@/components/Paginate";
 const ProductListPage = () => {
+  const { pageNumber } = useParams();
   const {
     data,
     isLoading: loadingproducts,
     error,
     refetch,
-  } = useGetProductsQuery();
+  } = useGetProductsQuery({ pageNumber });
   const navigate = useNavigate();
   const [
     createProduct,
@@ -82,7 +85,7 @@ const ProductListPage = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((product) => (
+              {data.products.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
@@ -107,6 +110,7 @@ const ProductListPage = () => {
               ))}
             </tbody>
           </Table>
+          <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </>
       )}
     </>

@@ -34,10 +34,14 @@ import CreateProduct from "./Pages/Adminpages/CreateProduct.jsx";
 import Editproduct from "./Pages/Adminpages/Editproduct.jsx";
 import UsersList from "./Pages/Adminpages/UsersList.jsx";
 import UpdateUser from "./Pages/Adminpages/UpdateUser.jsx";
+import { HelmetProvider } from "react-helmet-async";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<Homepage />} />
+      <Route path="/page/:pageNumber" element={<Homepage />} />
+      <Route path="/search/:keyword" element={<Homepage />} />
+      <Route path="/search/:keyword/page/:pageNumber" element={<Homepage />} />
       <Route path="/product/:id" element={<Productpage />} />
       <Route path="/cart" element={<Cartpage />} />
       <Route path="/login" element={<Loginpage />} />
@@ -58,6 +62,10 @@ const router = createBrowserRouter(
         <Route path="/admin/product/:id/edit" element={<Editproduct />} />
         <Route path="/admin/userlist" element={<UsersList />} />
         <Route path="/admin/user/:id/edit" element={<UpdateUser />} />
+        <Route
+          path="/admin/productlist/:pageNumber"
+          element={<ProductListPage />}
+        />
       </Route>
     </Route>
   )
@@ -65,10 +73,12 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PayPalScriptProvider deferLoading={true}>
-        <RouterProvider router={router} />
-      </PayPalScriptProvider>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading={true}>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>
 );

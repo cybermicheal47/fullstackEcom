@@ -5,8 +5,34 @@ import asyncHandler from "../middleware/asyncHandler.js";
 // route GET api/products
 //Public access
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.json(products);
+  try {
+    // Define the page size for pagination
+    const pageSize = 10;
+
+    // Get the current page number from the query parameters, default to page 1 if not provided
+    const page = Number(req.query.pageNumber) || 1;
+
+    // Define a keyword object to search products by name, if a keyword is provided in the query parameters
+    // Use the $regex operator for a case-insensitive search
+    const keyword = req.query.keyword
+      ? { name: { $regex: req.query.keyword, $options: "i" } }
+      : {};
+
+    // Count the total number of products that match the search criteria
+    const count = await Product.countDocuments({ ...keyword });
+
+    // Find products based on the search criteria and pagination
+    const products = await Product.find({ ...keyword })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1));
+
+    // Send the response with the products, current page, and total number of pages
+    res.json({ products, page, pages: Math.ceil(count / pageSize) });
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
 //Get a products

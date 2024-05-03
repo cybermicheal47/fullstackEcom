@@ -14,6 +14,7 @@ import Rating from "../components/Rating";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+
 import {
   useGetProductDetailsQuery,
   useCreateReviewMutation,
@@ -23,6 +24,7 @@ import { addToCart } from "@/slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Message from "@/components/Message";
+import Meta from "@/components/Meta";
 
 const Productpage = () => {
   const { id } = useParams();
@@ -79,6 +81,7 @@ const Productpage = () => {
         <div>{error?.data?.message || error.error}</div>
       ) : (
         <>
+          <Meta title={product.name} description={product.description} />
           <Row>
             <Col md={5}>
               <Image src={product.image} alt={product.name} fluid />

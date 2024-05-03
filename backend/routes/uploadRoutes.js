@@ -6,7 +6,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "frontend/public/uploads/");
   },
   filename(req, file, cb) {
     cb(
@@ -36,7 +36,7 @@ const upload = multer({
 });
 
 router.post("/", upload.single("image"), (req, res) => {
-  const imagePath = req.file.path.replace(/\\/g, "/"); // Replace backslashes with forward slashes
+  const imagePath = `uploads/${req.file.filename}`; // Replace backslashes with forward slashes
   res.send({
     message: "Image uploaded successfully",
     image: `/${imagePath}`,
