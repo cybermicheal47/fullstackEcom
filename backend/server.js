@@ -32,7 +32,10 @@ app.get("/api/config/paypal", (req, res) =>
 );
 
 const __dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+app.use(
+  "frontend/public/uploads",
+  express.static(path.join(__dirname, "frontend/public//uploads"))
+);
 
 app.use(notFound);
 app.use(errorHandler);
