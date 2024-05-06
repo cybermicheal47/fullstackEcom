@@ -42,7 +42,7 @@ app.get("/api/config/paypal", (req, res) =>
 // For production, serve index.html for any other routes
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "main.html"))
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
   );
 } else {
   app.get("/", (req, res) => {
