@@ -19,6 +19,7 @@ const Cartpage = () => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  const { userInfo } = useSelector((state) => state.auth);
 
   const addToCartHandler = async (product, qty) => {
     // any name could be used here apart from product and qty
@@ -30,7 +31,11 @@ const Cartpage = () => {
   };
 
   const checkoutHandler = () => {
-    navigate("/login?redirect=shipping");
+    if (userInfo) {
+      navigate("/shipping");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
