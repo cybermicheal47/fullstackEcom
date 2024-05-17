@@ -50,7 +50,7 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createProduct({
+      const result = await createProduct({
         name: formData.name,
         price: formData.price,
         image: formData.image,
