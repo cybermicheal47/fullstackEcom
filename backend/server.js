@@ -31,8 +31,12 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/upload", uploadRoutes);
 
 // Serve static files
+
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "frontend/public/uploads"))); // Serve uploaded images
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "frontend/public/uploads"))
+); // Serve uploaded images
 app.use(express.static(path.join(__dirname, "frontend/dist"))); // Serve frontend static files
 
 app.get("/api/config/paypal", (req, res) =>
